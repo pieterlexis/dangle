@@ -40,8 +40,6 @@ angular.module('dangle')
                 ymin:     '=',
                 xmax:     '=',
                 ymax:     '=',
-    		xint:     '=',
-                yint:     '=',
                 duration: '@'
             },
 			link: function(scope, element, attrs) {
@@ -78,15 +76,21 @@ angular.module('dangle')
 			.domain([ymin,ymax])
 			.range([height, 0]); // Reversed
 
+
                 var svg = d3.select(element[0])
                     .append('svg')
                         .attr('preserveAspectRatio', viewAlign + ' meet')
                         .attr('viewBox', '0 0 ' + (width + margin.left + margin.right) + ' ' + (height + margin.top + margin.bottom))
-//                        .attr('width', width)
-//                        .attr('height', height)
                         .append('g')
-                            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
+                            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+//			.append('g')
+//				.call(d3.svg.axis()
+//					.scale(xScale)
+//					.orient("bottom"))
+//			.append('g')
+//				.call(d3.svg.axis()
+//					.scale(yScale)
+//					.orient("left"));
 
 
                 scope.$watch('bind', function(data) {
@@ -95,6 +99,7 @@ angular.module('dangle')
                     var duration = scope.duration || 0;
 
                     if (data) {
+			console.log(data);
                         var circles = svg.selectAll('circle')
                             .data(data);
 
